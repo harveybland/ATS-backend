@@ -1,6 +1,7 @@
 const core = require('./core');
 require('./controllers/userController');
 require('./controllers/vacancyController');
+require('./controllers/dataController');
 
 const port = process.env.PORT || 4002;
 
