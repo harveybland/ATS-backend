@@ -20,3 +20,19 @@ core.app.post('/api/vacancy', async function (req, resp) {
     resp.status('404').json('error');
   }
 });
+
+// Get single vacancy
+core.app.get('/api/vacancy/:uid', async function (req, resp) {
+  try {
+    const vacancy = await schemas.vacancyModel.aggregate([
+      {
+        $match: {
+          _id: core.mongoose.Types.ObjectId(req.params.uid),
+        },
+      },
+    ]);
+    resp.status(200).json(vacancy[0]);
+  } catch {
+    resp.status('404').json('error');
+  }
+});

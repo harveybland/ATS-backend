@@ -27,21 +27,8 @@ const vacancySchema = new core.Schema({
   location: String,
 });
 
-const countrySchema = new core.Schema({
-  name: String,
-  code: String,
-});
-
-const titleSchema = new core.Schema({
-  title: String,
-});
-
 const userModel = core.mongoose.model('users', userSchema);
 const vacancyModel = core.mongoose.model('vacancy', vacancySchema);
-const countryModel = core.mongoose.model('country', countrySchema);
-const titleModel = core.mongoose.model('title', titleSchema);
 
 module.exports.userModel = userModel;
 module.exports.vacancyModel = vacancyModel;
-module.exports.countryModel = countryModel;
-module.exports.titleSchema = titleModel;
