@@ -13,7 +13,6 @@ const userSchema = new core.Schema({
   mobile: String,
   email: String,
   DOB: String,
-  age: String,
   isDeleted: { type: Boolean, default: false },
 });
 
@@ -27,8 +26,22 @@ const vacancySchema = new core.Schema({
   location: String,
 });
 
+const accountSchema = new core.Schema({
+  username: {
+    type: String,
+    required: true,
+    index: { unique: true },
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+
 const userModel = core.mongoose.model('users', userSchema);
 const vacancyModel = core.mongoose.model('vacancy', vacancySchema);
+const accountModel = core.mongoose.model('account', accountSchema);
 
 module.exports.userModel = userModel;
 module.exports.vacancyModel = vacancyModel;
+module.exports.accountModel = accountModel;
