@@ -2,7 +2,7 @@ const core = require('../core');
 const schemas = require('../schemas/Schemas');
 
 // Get all vacancies
-core.app.get('/api/vacancies', async function (req, resp) {
+core.app.get('/api/vacancies', async (req, resp) => {
   try {
     const vacancies = await schemas.vacancyModel.find();
     resp.status(200).json(vacancies);
@@ -12,17 +12,18 @@ core.app.get('/api/vacancies', async function (req, resp) {
 });
 
 // Create vacancy
-core.app.post('/api/vacancies', async function (req, resp) {
-  const result = await schemas.vacancyModel.create(req.body);
+core.app.post('/api/vacancies', async (req, resp) => {
   try {
-    resp.status(200).json(result);
+    await schemas.vacancyModel.create(req.body);
+    const vacancies = await schemas.vacancyModel.find();
+    resp.status(200).json(vacancies);
   } catch {
     resp.status('404').json('error');
   }
 });
 
 // Get single vacancy
-core.app.get('/api/vacancy/:uid', async function (req, resp) {
+core.app.get('/api/vacancy/:uid', async (req, resp) => {
   try {
     const vacancy = await schemas.vacancyModel.aggregate([
       {
@@ -42,26 +43,28 @@ core.app.put('/api/vacancy/:uid', async (req, resp) => {
   try {
     const id = req.params.uid;
     let vacancy = await schemas.vacancyModel.findOne({ _id: id });
-    (user.jobTitle = req.body.jobTitle),
-      (user.salary = req.body.salary),
-      (user.salaryType = req.body.salaryType),
-      (user.businessArea = req.body.businessArea),
-      (user.employmentType = req.body.employmentType),
-      (user.contractType = req.body.contractType),
-      (user.location = req.body.location);
+    (vacancy.jobTitle = req.body.jobTitle),
+      (vacancy.salary = req.body.salary),
+      (vacancy.salaryType = req.body.salaryType),
+      (vacancy.businessArea = req.body.businessArea),
+      (vacancy.employmentType = req.body.employmentType),
+      (vacancy.contractType = req.body.contractType),
+      (vacancy.location = req.body.location);
     vacancy.save();
-    resp.status(200).json(vacancy);
+    const vacancies = await schemas.vacancyModel.find();
+    resp.status(200).json(vacancies);
   } catch {
     resp.status('404').json('error');
   }
 });
 
 // Delete client
-core.app.delete('/api/vacancy/:uid', async function (req, resp) {
+core.app.delete('/api/vacancy/:uid', async (req, resp) => {
   try {
     const id = req.params.uid;
-    let vacancy = await schemas.vacancyModel.deleteOne({ _id: id });
-    resp.status(200).json(vacancy);
+    await schemas.vacancyModel.deleteOne({ _id: id });
+    const vacancies = await schemas.vacancyModel.find();
+    resp.status(200).json(vacancies);
   } catch {
     resp.status('404').json('error');
   }
@@ -103,8 +106,8 @@ core.app.get('/api/searchVacancy', async (req, resp) => {
       resp.status(200).json(data);
     }
     if (!data.length) {
-      const users = await schemas.vacancyModel.find();
-      resp.status(200).json(users);
+      const vacancies = await schemas.vacancyModel.find();
+      resp.status(200).json(vacancies);
     }
   } catch {
     resp.status('404').json('error');

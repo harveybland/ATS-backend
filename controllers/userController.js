@@ -7,9 +7,9 @@ const schemas = require('../schemas/Schemas');
 // }
 
 // Create User
-core.app.post('/api/users', async function (req, resp) {
+core.app.post('/api/users', async (req, resp) => {
   try {
-    const result = await schemas.userModel.create(req.body);
+    await schemas.userModel.create(req.body);
 
     const users = await schemas.userModel.find();
     resp.status(200).json(users);
@@ -19,7 +19,7 @@ core.app.post('/api/users', async function (req, resp) {
 });
 
 //Get all users
-core.app.get('/api/users', async function (req, resp) {
+core.app.get('/api/users', async (req, resp) => {
   try {
     const users = await schemas.userModel.aggregate([
       {
@@ -38,7 +38,7 @@ core.app.get('/api/users', async function (req, resp) {
 });
 
 // get user
-core.app.get('/api/user/:uid', async function (req, resp) {
+core.app.get('/api/user/:uid', async (req, resp) => {
   try {
     const user = await schemas.userModel.aggregate([
       {
@@ -57,7 +57,9 @@ core.app.get('/api/user/:uid', async function (req, resp) {
     ]);
     resp.status(200).json(user[0]);
   } catch {
-    resp.status('404').json('error');
+    resp.status('404').json({
+      text: 'Error 404, No user found',
+    });
   }
 });
 

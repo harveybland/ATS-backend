@@ -20,7 +20,7 @@ core.app.post('/api/login', async function (req, resp) {
   try {
     const user = await schemas.accountModel.findOne({ username: username });
     const isValid = await user.comparePassword(req.body.password);
-    resp.status(200).json('Sucess');
+    resp.status(200).json('Success');
   } catch (e) {
     resp.status(401).json(e);
   }

@@ -2,7 +2,7 @@ const core = require('../core');
 const schemas = require('../schemas/dataSchema');
 
 //Get countries
-core.app.get('/api/location', async function (req, resp) {
+core.app.get('/api/location', async (req, resp) => {
   try {
     const location = await schemas.locationModel.find();
     resp.status(200).json(location);
@@ -12,7 +12,7 @@ core.app.get('/api/location', async function (req, resp) {
 });
 
 //Get titles
-core.app.get('/api/titles', async function (req, resp) {
+core.app.get('/api/titles', async (req, resp) => {
   try {
     const title = await schemas.titleSchema.find();
     resp.status(200).json(title);
@@ -22,7 +22,7 @@ core.app.get('/api/titles', async function (req, resp) {
 });
 
 // Get business area
-core.app.get('/api/businessArea', async function (req, resp) {
+core.app.get('/api/businessArea', async (req, resp) => {
   try {
     const businessArea = await schemas.businessAreaSchema.find();
     resp.status(200).json(businessArea);
@@ -32,7 +32,7 @@ core.app.get('/api/businessArea', async function (req, resp) {
 });
 
 // Get salary type
-core.app.get('/api/salaryType', async function (req, resp) {
+core.app.get('/api/salaryType', async (req, resp) => {
   try {
     const salaryType = await schemas.salaryTypeSchema.find();
     resp.status(200).json(salaryType);
@@ -42,7 +42,7 @@ core.app.get('/api/salaryType', async function (req, resp) {
 });
 
 // Get contract type
-core.app.get('/api/contractType', async function (req, resp) {
+core.app.get('/api/contractType', async (req, resp) => {
   try {
     const contractType = await schemas.contractTypeSchema.find();
     resp.status(200).json(contractType);
@@ -52,7 +52,7 @@ core.app.get('/api/contractType', async function (req, resp) {
 });
 
 // Get employment type
-core.app.get('/api/employmentType', async function (req, resp) {
+core.app.get('/api/employmentType', async (req, resp) => {
   try {
     const employmentType = await schemas.employmentTypeSchema.find();
     resp.status(200).json(employmentType);
